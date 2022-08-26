@@ -1,9 +1,9 @@
 package fan.company.codingbatspringboot.controller;
 
-import fan.company.codingbatspringboot.entity.CategoryMini;
+import fan.company.codingbatspringboot.entity.Function;
 import fan.company.codingbatspringboot.payload.ApiResult;
-import fan.company.codingbatspringboot.payload.CategoryMiniDto;
-import fan.company.codingbatspringboot.services.CategoryMiniServices;
+import fan.company.codingbatspringboot.payload.FunctionDto;
+import fan.company.codingbatspringboot.services.FunctionServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -18,32 +18,32 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/categoryMini")
-public class CategoryMiniController {
+public class FunctionController {
 
     @Autowired
-    private CategoryMiniServices services;
+    private FunctionServices services;
 
     @PostMapping("/add")
-    public ResponseEntity<?> add(@Valid @RequestParam CategoryMiniDto dto){
+    public ResponseEntity<?> add(@Valid @RequestParam FunctionDto dto){
         ApiResult apiResult = services.add(dto);
         return ResponseEntity.status(apiResult.isSuccess()? HttpStatus.CREATED:HttpStatus.BAD_REQUEST).body(apiResult);
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<?> update (@Valid @PathVariable Long id, @RequestParam CategoryMiniDto dto){
+    public ResponseEntity<?> update (@Valid @PathVariable Long id, @RequestParam FunctionDto dto){
         ApiResult apiResult = services.update(id, dto);
         return ResponseEntity.status(apiResult.isSuccess()? HttpStatus.ACCEPTED:HttpStatus.BAD_REQUEST).body(apiResult);
     }
 
     @GetMapping("/getall")
-    public ResponseEntity<Page<CategoryMini>> getAll(@RequestParam Integer page) {
-        Page<CategoryMini> all = services.getAll(page);
+    public ResponseEntity<Page<Function>> getAll(@RequestParam Integer page) {
+        Page<Function> all = services.getAll(page);
         return ResponseEntity.status(all.hasContent() ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(all);
     }
 
     @GetMapping("/getById/{id}")
     public ResponseEntity<?> getById(@PathVariable Long id) {
-        CategoryMini  CategoryMini = services.getById(id);
+        Function  CategoryMini = services.getById(id);
         return ResponseEntity.status(CategoryMini != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST).body(CategoryMini);
     }
 
